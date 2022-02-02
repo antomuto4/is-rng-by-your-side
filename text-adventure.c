@@ -10,6 +10,8 @@ int r_level;
 int c_level;
   
 int main(){
+  printf("\t\033[0;32mHow many \033[0;33mlevels \033[0;31mcan you go through before \033[0;35mfate \033[0;36mchooses not to help you any longer?\n\n");
+  printf("\033[0m");
 
   while(1){
     srand(time(0));
