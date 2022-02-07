@@ -23,9 +23,17 @@ void next(int num){
 }
 
 void game_over(){
-  printf("\nYou survived for: %d level(s)\n", c_level);
+  printf("\n\033[0;31mYou survived for: %d level(s)\033[0m\n", c_level);
   health = 100;
   c_level = 0;
+}
+
+void line(){
+  printf("\n+---------------------------------------------------------+\n");
+}
+
+void clear(){
+  system("clear");
 }
 
 int game_loop(){
@@ -34,11 +42,12 @@ int game_loop(){
   
   switch(r_level){
   case 0:
-    printf("\n\nDo you want to move forward? (enter number)\n\x1B[32m1) yes\n\x1B[31m2) no\n\033[0m");
+    line();
+    printf("\nDo you want to move forward? \n\x1B[32m[1] yes\n\x1B[31m[2] no\n\033[0m");
     scanf("%d", &prompt);
     if(prompt == 1){
       printf("\nYou continued to walk..");
-	next(3);
+      next(3);
     }
     
     else if(rng == 0){
@@ -48,13 +57,17 @@ int game_loop(){
     }
     
     else{
-	health += 10;
-	printf("\nExhaustion was reduced. Health increased by 10. Your health is now at: %d", health);
-      }
-    
+      health += 10;
+      printf("\nExhaustion was reduced. Health increased by 10. Your health is now at: %d", health);
+    }
+
+    line();
+    clear(); 
+
     break;
   case 1:
-    printf("\n\nThere is a lake in front of you, do you want to cross it?\nCrossing may decrease your health. Your health is: %i. (enter number)\n\x1B[32m1) yes\n\x1B[31m2) no\n\033[0m", health);
+    line();
+    printf("\n\nThere is a lake in front of you, do you want to cross it?\nCrossing may decrease your health. Your health is: %i. \n\x1B[32m[1] yes\n\x1B[31m[2] no\n\033[0m", health);
     scanf("%d", &prompt);
     if(prompt == 1){
       health -= 10;
@@ -72,14 +85,18 @@ int game_loop(){
       health += 5;
       printf("\nYou stood still for a while and recovered 5 hp. Your health is now at: %d.", health);
     }
+
+    line();
+    clear();
     break;
     
   case 2:      
-    printf("\nYou found an airport. It's possible to find weapons in this area, but it's easy to get spotted. (enter number)\n\x1B[32m1) look around\n\x1B[31m2) forget it\n\033[0m");
+    line();
+    printf("\nYou found an airport. It's possible to find weapons in this area, but it's easy to get spotted. \n\x1B[32m[1] look around\n\x1B[31m[2] forget it\n\033[0m");
     scanf("%d", &prompt);
     
     if(prompt == 1){
-      printf("\nYou scan the area..\nThere lies a security guard on the ground, will you search it? (enter number)\n\x1B[32m1) search body\n\x1B[31m2) nevermind, get the hell out of here\n\033[0m");
+      printf("\nYou scan the area..\nThere lies a security guard on the ground, will you search it? \n\x1B[32m[1] search body\n\x1B[31m[2] nevermind, get the hell out of here\n\033[0m");
       scanf("%d", &prompt);
       
       if(prompt == 1){
@@ -101,11 +118,18 @@ int game_loop(){
       next(3);
     }
     
+    line();
+    clear();
+
     break;
   default:
     return 1;
     
     break;
+  }
+
+  if(health <= 0){
+    game_over();
   }
   
 }
